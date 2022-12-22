@@ -1,0 +1,20 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+logging:
+  level:
+    org:
+      zalando:
+        logbook: trace
+logbook:
+  filter:
+    form-request-mode: off
+  format:
+    style: http
+chatgpt:
+  api-key: xxxxxx   #your api-key. It can be generated in this link https://beta.openai.com/docs/quickstart/adjust-your-settings
+  max-tokens: 1000
