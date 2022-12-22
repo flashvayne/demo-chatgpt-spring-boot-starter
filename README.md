@@ -1,10 +1,10 @@
 # demo-chatgpt-spring-boot-starter
 
-this is a demo project for [chatgpt-spring-boot-starter]https://github.com/flashvayne/chatgpt-spring-boot-starter
+This is a demo project for [chatgpt-spring-boot-starter]https://github.com/flashvayne/chatgpt-spring-boot-starter
 
 ## Usage
-1.clone the code.
-2.set your chatgpt.api-key in "application.yml".
+1.clone the code. 
+2.set your chatgpt.api-key in "application.yml". 
 3.run it, and then you can chat with chatgpt by this api.
 
 + request
