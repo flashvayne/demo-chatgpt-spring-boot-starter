@@ -4,12 +4,15 @@ this is a demo project for [chatgpt-spring-boot-starter]https://github.com/flash
 
 ## Demo online experience
 https://vayne.cc/chat/
-<i>**The web page is the html written by ChatGPT for me, which is very simple. If anyone is good at the front end, you can create a pull request to help optimize it. Thank you.
-File Path: src/main/resources/static/index.html</i>
 
+*My account's request times quota is exceeded, so my demo does not work now.
+You can use your own account api-key to let your demo work.  
+
+<i>**The web page is written by ChatGPT for me, which is very simple. If anyone is good at the front end, you can create a pull request to help optimize it. Thank you.
+File Path: src/main/resources/static/index.html</i>
 ## Usage
-1.clone the code.
-2.set your chatgpt.api-key in "application.yml".
+1.clone the code.  
+2.set your chatgpt.api-key in "application.yml".  
 3.run it, and then you can chat with chatgpt by this api.
 
 + request
