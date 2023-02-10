@@ -46,7 +46,7 @@
             const message = event.target.value;
             messageList.innerHTML += `<div class="message-item"><div class="user-message">${message}</div></div>`;
             event.target.value = '';
-            fetch('https://vayne.cc/chat/send?message=' + message, {
+            fetch('http://127.0.0.1:8080/send?message=' + message, {
                 method: 'GET'
             })
                 .then((response) => response.json())
