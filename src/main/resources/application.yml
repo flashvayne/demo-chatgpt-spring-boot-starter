@@ -16,7 +16,7 @@ logbook:
   format:
     style: http
 chatgpt:
-  api-key: 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   #api-key. It can be generated in this link https://platform.openai.com/account/api-keys
+  api-key: sk-xxxxxxx   #api-key. It can be generated in this link https://platform.openai.com/account/api-keys
 # some properties as below have default values. For descriptions of these fields, please refer to https://platform.openai.com/docs/api-reference/completions/create and https://platform.openai.com/docs/api-reference/chat/create
 #  url: https://api.openai.com/v1/completions
 #  max-tokens: 500
