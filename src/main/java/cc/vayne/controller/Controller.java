@@ -2,6 +2,8 @@ package cc.vayne.controller;
 
 import cc.vayne.dto.ResponseModel;
 import io.github.flashvayne.chatgpt.dto.chat.MultiChatMessage;
+import io.github.flashvayne.chatgpt.dto.image.ImageFormat;
+import io.github.flashvayne.chatgpt.dto.image.ImageSize;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +29,9 @@ public class Controller {
         if (!StringUtils.hasText(message)) {
             return ResponseModel.fail("message can not be blank");
         }
-        try {
-            String responseMessage = chatgptService.sendMessage(message);
-            log.info("requestId {}, ip {}, get a reply : {}", requestId, request.getRemoteHost(), responseMessage);
-            return ResponseModel.success(responseMessage);
-        } catch (Exception e) {
-            log.error("requestId {}, ip {}, error", requestId, request.getRemoteHost(),e);
-            return new ResponseModel<>(500, "error", e.getMessage());
-        }
+        String responseMessage = chatgptService.sendMessage(message);
+        log.info("requestId {}, ip {}, get a reply : {}", requestId, request.getRemoteHost(), responseMessage);
+        return ResponseModel.success(responseMessage);
     }
 
     @PostMapping("/multi/send")
@@ -44,14 +41,38 @@ public class Controller {
         if (CollectionUtils.isEmpty(messages)) {
             return ResponseModel.fail("messages can not be empty");
         }
-        try {
-            String responseMessage = chatgptService.multiChat(messages);
-            log.info("requestId {}, ip {}, get a reply : {}", requestId, request.getRemoteHost(), responseMessage);
-            return ResponseModel.success(responseMessage);
-        } catch (Exception e) {
-            log.error("requestId {}, ip {}, error", requestId, request.getRemoteHost(),e);
-            return new ResponseModel<>(500, "error", e.getMessage());
+        String responseMessage = chatgptService.multiChat(messages);
+        log.info("requestId {}, ip {}, get a reply : {}", requestId, request.getRemoteHost(), responseMessage);
+        return ResponseModel.success(responseMessage);
+    }
+
+    @GetMapping("/image")
+    public ResponseModel<String> image(HttpServletRequest request, @RequestParam String prompt) {
+        String requestId = UUID.randomUUID().toString();
+        log.info("requestId {}, ip {}, image generation prompt : {}", requestId, request.getRemoteHost(), prompt);
+        if (!StringUtils.hasText(prompt)) {
+            return ResponseModel.fail("prompt can not be blank");
         }
+        String imageUrl = chatgptService.imageGenerate(prompt);
+        log.info("requestId {}, ip {}, image is generated : {}", requestId, request.getRemoteHost(), imageUrl);
+        return ResponseModel.success(imageUrl);
+    }
+
+    @GetMapping("/images")
+    public ResponseModel<List<String>> images(HttpServletRequest request, @RequestParam String prompt,
+                                       Integer n, Integer size,String format) {
+        String requestId = UUID.randomUUID().toString();
+        log.info("requestId {}, ip {}, image generation prompt : {}", requestId, request.getRemoteHost(), prompt);
+        ImageSize imageSize;
+        switch (size){
+            case 1 : imageSize = ImageSize.SMALL; break;
+            case 2 : imageSize = ImageSize.MEDIUM; break;
+            default: imageSize = ImageSize.LARGE;
+        }
+        ImageFormat imageFormat = "url".equals(format) ? ImageFormat.URL : ImageFormat.BASE64;
+        List<String> images = chatgptService.imageGenerate(prompt,n, imageSize,imageFormat);
+        log.info("requestId {}, ip {}, image is generated : {}", requestId, request.getRemoteHost(), images.toString());
+        return ResponseModel.success(images);
     }
 
 }
